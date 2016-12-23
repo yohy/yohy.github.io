@@ -96,28 +96,13 @@
         
         <p>一. Activity的理解</p>
 <p>参考</p>
-<p><a href="http://blog.csdn.net/android_tutor/article/details/5772285" title="activity生命周期" target="_blank" rel="external">activity生命周期</a><br><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-android-actvt/" title="详解 Android 的 Activity 组件" target="_blank" rel="external">详解 Android 的 Activity 组件</a></p>
-<p>1.在Android中Activity主要是用来做控制的，它可以选择要显示的View，也可以从View中获取数据然后把数据传给Model层进行处理，最后再来显示出处理结果。</p>
-<p>2.在 android 中，Activity 拥有四种基本状态：</p>
-<p><strong>Active/Runing</strong> : 一个新 Activity 启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。</p>
-<p><strong>Paused</strong> : 当 Activity 被另一个透明或者 Dialog 样式的 Activity 覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，所以它仍然可见，但它已经失去了焦点故不可与用户交互。</p>
-<p><strong>Stoped</strong> : 当 Activity 被另外一个 Activity 覆盖、失去焦点并不可见时处于 Stoped状态。</p>
-<p><strong>Killed Activity</strong>: 被系统杀死回收或者没有被启动时处于 Killed状态。</p>
-<p>当一个 Activity 实例被创建、销毁或者启动另外一个 Activity 时，它在这四种状态之间进行转换，这种转换的发生依赖于用户程序的动作,如下图所示。<br><img src="http://hi.csdn.net/attachment/201007/28/0_12803210018q71.gif" alt=""></p>
-<p>3.<strong>Activity 栈</strong></p>
-<p>Android 是通过一种 Activity 栈的方式来管理 Activity 的，一个 Activity 的实例的状态决定它在栈中的位置。处于前台的 Activity 总是在栈的顶端，当前台的 Activity 因为异常或其它原因被销毁时，处于栈第二层的 Activity 将被激活，上浮到栈顶。当新的 Activity 启动入栈时，原 Activity 会被压入到栈的第二层。一个 Activity 在栈中的位置变化反映了它在不同状态间的转换。除了最顶层即处在 Active 状态的 Activity 外，其它的 Activity 都有可能在系统内存不足时被回收。</p>
-<p>4.方法说明</p>
-<p><strong>protected void onCreate(Bundle savedInstanceState)</strong>：一个 Activity 的实例被启动时调用的第一个方法。一般情况下，我们都覆盖该方法作为应用程序的一个入口点，在这里做一些初始化数据、设置用户界面等工作。大多数情况下，我们都要在这里从 xml 中加载设计好的用户界面。</p>
-<p><strong>protected void onStart()</strong>：该方法在 onCreate() 方法之后被调用，或者在 Activity 从 Stop 状态转换为 Active 状态时被调用。</p>
-<p><strong>protected void onResume()</strong>：在 Activity 从 Pause 状态转换到 Active 状态时被调用。</p>
-<p><strong>protected void onResume()</strong>：在 Activity 从 Active 状态转换到 Pause 状态时被调用。</p>
-<p><strong>protected void onStop()</strong>：在 Activity 从 Active 状态转换到 Stop 状态时被调用。一般我们在这里保存 Activity 的状态信息。</p>
-<p><strong>protected void onDestroy()</strong>：在 Active 被结束时调用，它是被结束时调用的最后一个方法，在这里一般做些释放资源，清理内存等工作。</p>
-<p>5.Activity 之间通信，使用 Intent 通信</p>
-
+<p><a href="http://blog.csdn.net/android_tutor/article/details/5772285" title="activity生命周期">activity生命周期</a><br><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-android-actvt/" title="详解 Android 的 Activity 组件">详解 Android 的 Activity 组件</a></p>
+<p>1.在Android中Activity主要是用来做控制的，它可以选择要显示的View，也可以从View中获取数据然后把数据传给Model层进行处理，最后再来显示出处理结果。
         
         
         <p class="article-more-link">
+          
+            <a href="/2016/05/11/AndroidActivity/#more">Read More</a>
           
        </p>
     </div>
