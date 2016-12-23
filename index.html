@@ -100,25 +100,12 @@
 <li>不能打开控制面板，一打开就出现windows资源管理器停止工作。</li>
 <li>发现打印机共享不能使用，我可以ping通别人的电脑，别人不可以ping我的。应该是windows防火墙有问题.</li>
 <li>想要写github博文的时候，发现hexo g不能使用，npm和hexo命令都已经失效，可能是太久没有使用的原因</li>
-<li>U盘中了快捷方式的病毒，打开U盘发现文件夹很多都变成了快捷方式。</li>
-</ol>
-<p>##问题一的解决<br>原因是有个脚本js文件坏了，开始-所有程序-启动-把脚本文件删掉即可。<br>然后把对应的脚本目录里的文件也删掉，重启电脑。</p>
-<p>##问题二的解决<br>防火墙一直不能启动服务，启动就会报错，windows不能在本地计算机启动windows firewall，错误代码13.我怀疑是昨天乱下了农行插件的原因，把我的防火墙给强制关闭了。<br><img src="https://gss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/e61190ef76c6a7ef1d2a2a79fffaaf51f3de6665.jpg" alt=""></p>
-<p>在google上找解决方法，直接把防火墙策略全部移除：<a href="https://answers.microsoft.com/en-us/windows/forum/windows_7-security/cannot-start-the-window-firewall-error-code-13/9fbffc18-93f3-40fa-814c-2b010bf41013" title="Cannot start the Window Firewall error code 13" target="_blank" rel="external">Cannot start the Window Firewall error code 13</a></p>
-<p>I’ve got it working on Windows 10, finally. See screenshot.<br><code>a. Run&gt;regedit, then go here</code></p>
-<p><code>b. Delete all folders INSIDE FirewallPolicy (Do NOT delete the FirewallPolicy folder)</code></p>
-<p><code>c. Open an admin CMD, and type: net start MpsSvc
-The service should now start.</code></p>
-<p>##问题三的解决<br>在Git bash敲下命令hexo g，居然出现上述错误信息，然后发现输入任何有关hexo的命令都是同样的错误，我又试着敲了npm这个命令，发现也是出错的，但是在系统命令行中输入node -v和npm -v,都正常显示了版本信息，于是我想估计是环境变量设置有问题，我在用户的环境变量PATH中添加了两个路径，分别是<code>C:\Users\yohy\node_modules\hexo\bin</code>和<code>C:\Program Files\nodejs</code>，再加上原来就添加的路径<code>C:\Users\yohy\AppData\Roaming\npm</code>，发现就解决这个问题了，可以正常修改博文，然后发布网站。</p>
-<p>解决方法参考了：<a href="http://ccc013.github.io/2016/01/20/hexo+github%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93/" title="hexo使用问题总结" target="_blank" rel="external">hexo使用问题总结</a></p>
-<p>##问题四的解决<br>电脑插入U盘以后发现文件夹都变成了快捷方式。参考了网上的解决方法</p>
-<p><a href="http://www.3lian.com/edu/2015/09-01/242988.html" title="电脑插入U盘后里面的文件变成快捷方式" target="_blank" rel="external">电脑插入U盘后里面的文件变成快捷方式</a></p>
-<p>###ps: </p>
-<p>记录一下今天这么多的小问题的解决，哈哈~</p>
-
+<li>U盘中了快捷方式的病毒，打开U盘发现文件夹很多都变成了快捷方式。
         
         
         <p class="article-more-link">
+          
+            <a href="/2016/12/23/windows-firewall/#more">Read More</a>
           
        </p>
     </div>
