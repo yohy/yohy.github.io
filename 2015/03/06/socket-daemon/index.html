@@ -1,0 +1,513 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>如何搭建socket并开启守护进程 | yohy&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="yohy">
+    
+    <meta name="description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+    
+    
+    <meta name="description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何搭建socket并开启守护进程">
+<meta property="og:url" content="http://yohy.github.io/2015/03/06/socket-daemon/index.html">
+<meta property="og:site_name" content="yohy's blog">
+<meta property="og:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta property="og:updated_time" content="2016-01-18T12:29:04.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何搭建socket并开启守护进程">
+<meta name="twitter:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="yohy&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="yohy&#39;s blog" title="yohy&#39;s blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="yohy&#39;s blog">yohy&#39;s blog</a></h1>
+				<h2 class="blog-motto">感恩。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yohy.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/03/06/socket-daemon/" title="如何搭建socket并开启守护进程" itemprop="url">如何搭建socket并开启守护进程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-03-06T05:00:39.000Z" itemprop="datePublished"> 发表于 Mar 6 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><span class="toc-number">1.</span> <span class="toc-text">一. socket是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">二. socket基本操作？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><span class="toc-number">3.</span> <span class="toc-text">三. 守护进程是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><span class="toc-number">4.</span> <span class="toc-text">四. linux下如何将socket和守护进程应用起来？</span></a></li></ol>
+		
+		</div>
+		
+		<p>最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。<br><a id="more"></a></p>
+<h3 id="u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="一. socket是什么？"></a>一. socket是什么？</h3><hr>
+<p>在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP/IP协议族已经帮我们解决了这个问题，网络层的“ip地址”可以唯一标识网络中的主机，而传输层的“协议+端口”可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</p>
+<p>网络中的进程是通过socket来通信的。</p>
+<h3 id="u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><a href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F" class="headerlink" title="二. socket基本操作？"></a>二. socket基本操作？</h3><hr>
+<pre><code>1. socket()
+2. bind()
+3. listen()
+4. connect()
+5. accept()
+6. read()
+7. write()
+8. close()
+</code></pre><h3 id="u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="三. 守护进程是什么？"></a>三. 守护进程是什么？</h3><hr>
+<ol>
+<li><p>守护进程：生存期长，在系统引导装入时启动，在系统关闭时终止，没有控制终端，只在后台运行。所有守护进程的父进程都是init进程</p>
+</li>
+<li><p>一个或多个进程构成进程组，一个或多个进程组构成会话组</p>
+</li>
+<li><p>守护进程编程规则：</p>
+<ol>
+<li>创建子进程，父进程退出(使得子进程成为孤儿进程，孤儿进程运行一段时间后，由init进程统一接管)</li>
+<li><p>调用setsid创建一个新的会话，并担任该会话组的组长.setsid的作用如下：</p>
+<ul>
+<li><p>成为新会话组的首进程 </p>
+</li>
+<li><p>成为一个新进程组的首进程</p>
+</li>
+<li><p>脱离控制终端</p>
+</li>
+</ul>
+</li>
+<li><p>改变当前目录为根目录—chdir(“/“);</p>
+</li>
+<li>重设文件权限掩码—umask(0);—-对所有权限都开放</li>
+<li><p>关闭不再需要的文件描述符—–</p>
+<blockquote>
+</blockquote>
+<p>for(i=0;i&lt;MAXFILE;i++)<br>{<br>  close(i);<br>}</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><a href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F" class="headerlink" title="四. linux下如何将socket和守护进程应用起来？"></a>四. linux下如何将socket和守护进程应用起来？</h3><hr>
+<p>由于项目保密性需要，这个可以参考一个网址<a href="http://blog.chinaunix.net/uid-20372841-id-1695254.html" title="linux下守护进程和socket应用的例子" target="_blank" rel="external">linux下守护进程和socket应用的例子</a>，我对代码进行了修改，如将read()、write()函数替换成了send()、recv()函数，实现了服务器有守护进程跑着，客户端可随时对服务器发送request，服务器解析之后返回response。</p>
+<p>相关代码还是等毕设之后吧~</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/网络编程/">网络编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/网络/">网络</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yohy.github.io/2015/03/06/socket-daemon/" data-title="如何搭建socket并开启守护进程 | yohy&#39;s blog" data-tsina="2782831692" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/14/current/" title="写在最迷茫的15年9月">
+  <strong>上一篇：</strong><br/>
+  <span>
+  写在最迷茫的15年9月</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/02/04/shawshank/"  title="肖申克的救赎">
+ <strong>下一篇：</strong><br/> 
+ <span>肖申克的救赎
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/03/06/socket-daemon/" data-title="如何搭建socket并开启守护进程" data-url="http://yohy.github.io/2015/03/06/socket-daemon/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><span class="toc-number">1.</span> <span class="toc-text">一. socket是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">二. socket基本操作？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><span class="toc-number">3.</span> <span class="toc-text">三. 守护进程是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><span class="toc-number">4.</span> <span class="toc-text">四. linux下如何将socket和守护进程应用起来？</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/生活琐事/" title="生活琐事">生活琐事<sup>1</sup></a></li>
+		
+			<li><a href="/categories/电影推荐/" title="电影推荐">电影推荐<sup>2</sup></a></li>
+		
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		
+			<li><a href="/categories/胡思乱想/" title="胡思乱想">胡思乱想<sup>6</sup></a></li>
+		
+			<li><a href="/categories/计忆流年/" title="计忆流年">计忆流年<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/随想/" title="随想">随想<sup>6</sup></a></li>
+		
+			<li><a href="/tags/电影/" title="电影">电影<sup>2</sup></a></li>
+		
+			<li><a href="/tags/计忆/" title="计忆">计忆<sup>2</sup></a></li>
+		
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/生活/" title="生活">生活<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://brucerain.github.io/" target="_blank" title="C.L.Rain&#39;s Blog">C.L.Rain&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://lfy2us.com/" target="_blank" title="Lvfy&#39;s Blog">Lvfy&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://cs.bit.edu.cn/" target="_blank" title="BIT.CS">BIT.CS</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi,I&#39;m yohy.For now I&#39;m a master in FUDAN, graduated from BIT. <br/>
+			They say a person needs just three things to be truly happy in this world: someone to love, something to do, and something to hope for.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2782831692" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/yohy" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		<a href="https://www.douban.com/people/81798855" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		
+		<a href="mailto:liangjiao@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2016 
+		
+		<a href="http://yohy.github.io/about" target="_blank" title="yohy">yohy</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"yohy"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>

@@ -1,0 +1,960 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>yohy&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="yohy">
+    
+    <meta name="description" content="感恩。">
+    
+    
+    <meta name="description" content="感恩。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="yohy's blog">
+<meta property="og:url" content="http://yohy.github.io/index.html">
+<meta property="og:site_name" content="yohy's blog">
+<meta property="og:description" content="感恩。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yohy's blog">
+<meta name="twitter:description" content="感恩。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="yohy&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="yohy&#39;s blog" title="yohy&#39;s blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="yohy&#39;s blog">yohy&#39;s blog</a></h1>
+				<h2 class="blog-motto">感恩。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yohy.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/11/AndroidActivity/" title="Android开发记录" itemprop="url">Android开发记录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-11T12:22:56.000Z" itemprop="datePublished"> 发表于 May 11 2016</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>一. Activity的理解</p>
+<p>参考</p>
+<p><a href="http://blog.csdn.net/android_tutor/article/details/5772285" title="activity生命周期" target="_blank" rel="external">activity生命周期</a><br><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-android-actvt/" title="详解 Android 的 Activity 组件" target="_blank" rel="external">详解 Android 的 Activity 组件</a></p>
+<p>1.在Android中Activity主要是用来做控制的，它可以选择要显示的View，也可以从View中获取数据然后把数据传给Model层进行处理，最后再来显示出处理结果。</p>
+<p>2.在 android 中，Activity 拥有四种基本状态：</p>
+<p><strong>Active/Runing</strong> : 一个新 Activity 启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。</p>
+<p><strong>Paused</strong> : 当 Activity 被另一个透明或者 Dialog 样式的 Activity 覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，所以它仍然可见，但它已经失去了焦点故不可与用户交互。</p>
+<p><strong>Stoped</strong> : 当 Activity 被另外一个 Activity 覆盖、失去焦点并不可见时处于 Stoped状态。</p>
+<p><strong>Killed Activity</strong>: 被系统杀死回收或者没有被启动时处于 Killed状态。</p>
+<p>当一个 Activity 实例被创建、销毁或者启动另外一个 Activity 时，它在这四种状态之间进行转换，这种转换的发生依赖于用户程序的动作,如下图所示。<br><img src="http://hi.csdn.net/attachment/201007/28/0_12803210018q71.gif" alt=""></p>
+<p>3.<strong>Activity 栈</strong></p>
+<p>Android 是通过一种 Activity 栈的方式来管理 Activity 的，一个 Activity 的实例的状态决定它在栈中的位置。处于前台的 Activity 总是在栈的顶端，当前台的 Activity 因为异常或其它原因被销毁时，处于栈第二层的 Activity 将被激活，上浮到栈顶。当新的 Activity 启动入栈时，原 Activity 会被压入到栈的第二层。一个 Activity 在栈中的位置变化反映了它在不同状态间的转换。除了最顶层即处在 Active 状态的 Activity 外，其它的 Activity 都有可能在系统内存不足时被回收。</p>
+<p>4.方法说明</p>
+<p><strong>protected void onCreate(Bundle savedInstanceState)</strong>：一个 Activity 的实例被启动时调用的第一个方法。一般情况下，我们都覆盖该方法作为应用程序的一个入口点，在这里做一些初始化数据、设置用户界面等工作。大多数情况下，我们都要在这里从 xml 中加载设计好的用户界面。</p>
+<p><strong>protected void onStart()</strong>：该方法在 onCreate() 方法之后被调用，或者在 Activity 从 Stop 状态转换为 Active 状态时被调用。</p>
+<p><strong>protected void onResume()</strong>：在 Activity 从 Pause 状态转换到 Active 状态时被调用。</p>
+<p><strong>protected void onResume()</strong>：在 Activity 从 Active 状态转换到 Pause 状态时被调用。</p>
+<p><strong>protected void onStop()</strong>：在 Activity 从 Active 状态转换到 Stop 状态时被调用。一般我们在这里保存 Activity 的状态信息。</p>
+<p><strong>protected void onDestroy()</strong>：在 Active 被结束时调用，它是被结束时调用的最后一个方法，在这里一般做些释放资源，清理内存等工作。</p>
+<p>5.Activity 之间通信，使用 Intent 通信</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/计忆流年/">计忆流年</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/计忆/">计忆</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2016/05/11/AndroidActivity/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/11/AndroidActivity/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/06/20160506/" title="研一二三事（一）" itemprop="url">研一二三事（一）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-06T10:53:04.000Z" itemprop="datePublished"> 发表于 May 6 2016</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>其实，我一直都有记录东西的习惯，并且很喜欢反思自己。只不过，平台似乎有些不固定，有时候是在极速（因为忘不了的北理），有时候是在有道云笔记（顺便写些科研急中生智的想法），有时候是在github（一般都是积攒很久来一篇），有时候是自己的小日记本（纸质的感觉更好，私密感很强烈）。写东西很多时候就是整理思路的过程，人需要不断的整理才能进步更快。
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/05/06/20160506/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/胡思乱想/">胡思乱想</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/随想/">随想</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2016/05/06/20160506/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/06/20160506/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/17/github-init/" title="github终于又可以用了" itemprop="url">github终于又可以用了</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-17T13:02:28.000Z" itemprop="datePublished"> 发表于 Jan 17 2016</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>由于hexo版本更新部署的很多细节都变了，而自从读研以后，自己又很少再用自己的电脑，用的都是实验室的电脑，然后捣鼓了很多次都部署失败，现在终于是成功了，感觉也是一个血泪史啊。由于自己记性很差，第一次部署的时候还是去年的这个时候了，现在终于成功在实验室电脑上部署成功了。好开心！</p>
+<p>这次一定要把问题记录下来啊！还有要学习 <code>markdown</code> 语法啦~</p>
+<p>ps: 因为自己记性太差了，以后打算经常记录东西在这里啦~<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/01/17/github-init/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/计忆流年/">计忆流年</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/计忆/">计忆</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2016/01/17/github-init/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/17/github-init/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/07/missyou/" title="莫名感动" itemprop="url">莫名感动</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-07T05:55:19.000Z" itemprop="datePublished"> 发表于 Oct 7 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>已经连续三天梦到了大学的小伙伴，第一天梦到一群人学游泳，第二天梦到打台球和扑克牌，第三天梦到在宿舍。每次梦到他们就觉得内心很沮丧，不想说话，不想理人。今天想安静，一路上听着周杰伦的《彩虹》单曲循环，想着要不要给大学同学打电话，后来想到，哦，原来是国庆，他们该出去玩了吧。然后去实验室取了书和电脑，去图书馆，刚刚到图书馆，很久不联系的ZY打电话给我，我赶紧跑出去，在石凳上聊了快一个小时。</p>
+<p>这是一篇流水账。
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/10/07/missyou/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/胡思乱想/">胡思乱想</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/随想/">随想</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/10/07/missyou/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/07/missyou/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/14/current/" title="写在最迷茫的15年9月" itemprop="url">写在最迷茫的15年9月</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-14T11:35:51.000Z" itemprop="datePublished"> 发表于 Sep 14 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>大概我记忆中最迷茫的时候莫过于现在，虽然去年十二月已经来了上海，当时只是单纯的完成任务，很多的觉得烦的东西就一直拖着不去想，总以为不想就不会有。现在开学了，课开始上了，方向要开始思考了，之前做的一堆项目也要继续做，最近状态很不好，整个人乱七八糟，每次都说服自己，人总要有这样的阶段，不可能一直积极下去，消沉一段时间，思考思考人生也是好的，所以一边在急着，一边在迷茫着，一边在自我暗示着，整个人就像丧心病狂一样的。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/09/14/current/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/胡思乱想/">胡思乱想</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/随想/">随想</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/09/14/current/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/14/current/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/03/06/socket-daemon/" title="如何搭建socket并开启守护进程" itemprop="url">如何搭建socket并开启守护进程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-03-06T05:00:39.000Z" itemprop="datePublished"> 发表于 Mar 6 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/03/06/socket-daemon/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/网络编程/">网络编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/网络/">网络</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/03/06/socket-daemon/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/03/06/socket-daemon/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/04/shawshank/" title="肖申克的救赎" itemprop="url">肖申克的救赎</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-04T12:39:44.000Z" itemprop="datePublished"> 发表于 Feb 4 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>豆瓣高分排名第一的就是《肖申克的救赎》了，今天才看了这部电影，对于是不是第一，我不敢评价，不过我敢肯定的是，我目前再想不到一个可以超越他的作品。</p>
+<p>Hope is a good thing，生活不能放弃希望。</p>
+<p>Get busy living or get busy dying？都不是。</p>
+<p>Fear Can Hold You Prisoner, Hope Can Set You Free。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/02/04/shawshank/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/电影推荐/">电影推荐</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/电影/">电影</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/02/04/shawshank/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/04/shawshank/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/01/life/" title="生活的激情" itemprop="url">生活的激情</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-01T11:35:54.000Z" itemprop="datePublished"> 发表于 Feb 1 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>生活之所让人热爱处，在于那些或喜或悲、丰富多彩的经历，而这些经历沉淀下来，反过来又能激起我们更多的生活热情，进而促使我们去体验更广阔的生活，构成一个良性循环。反之，缺乏内容、日复一日、年复一年的机械生活，如同一潭死水，是没有激情可言的，缺乏激情的生活，又会进一步阻碍我们拓展人生体验，从而进入一个恶性循环。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/02/01/life/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/生活琐事/">生活琐事</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/生活/">生活</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/02/01/life/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/01/life/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/31/movie1/" title="辩护人" itemprop="url">辩护人</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-31T13:42:30.000Z" itemprop="datePublished"> 发表于 Jan 31 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>岩石再坚硬也是死的，鸡蛋再脆弱也是有生命的。石头最终会化为沙土，而鸡蛋孕育的生命总有一天会飞越石头。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/01/31/movie1/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/电影推荐/">电影推荐</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/电影/">电影</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/01/31/movie1/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/01/31/movie1/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/24/snowing/" title="北京下雪了" itemprop="url">北京下雪了</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yohy.github.io/about" title="yohy" target="_blank" itemprop="author">yohy</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-24T13:17:38.000Z" itemprop="datePublished"> 发表于 Jan 24 2015</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>据说北京下雪了，下雪时候，思念横生。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/01/24/snowing/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/胡思乱想/">胡思乱想</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/随想/">随想</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://yohy.github.io/2015/01/24/snowing/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/01/24/snowing/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/生活琐事/" title="生活琐事">生活琐事<sup>1</sup></a></li>
+		
+			<li><a href="/categories/电影推荐/" title="电影推荐">电影推荐<sup>2</sup></a></li>
+		
+			<li><a href="/categories/网络编程/" title="网络编程">网络编程<sup>1</sup></a></li>
+		
+			<li><a href="/categories/胡思乱想/" title="胡思乱想">胡思乱想<sup>6</sup></a></li>
+		
+			<li><a href="/categories/计忆流年/" title="计忆流年">计忆流年<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/随想/" title="随想">随想<sup>6</sup></a></li>
+		
+			<li><a href="/tags/电影/" title="电影">电影<sup>2</sup></a></li>
+		
+			<li><a href="/tags/计忆/" title="计忆">计忆<sup>2</sup></a></li>
+		
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/生活/" title="生活">生活<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://brucerain.github.io/" target="_blank" title="C.L.Rain&#39;s Blog">C.L.Rain&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://lfy2us.com/" target="_blank" title="Lvfy&#39;s Blog">Lvfy&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://cs.bit.edu.cn/" target="_blank" title="BIT.CS">BIT.CS</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi,I&#39;m yohy.For now I&#39;m a master in FUDAN, graduated from BIT. <br/>
+			They say a person needs just three things to be truly happy in this world: someone to love, something to do, and something to hope for.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2782831692" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/yohy" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		<a href="https://www.douban.com/people/81798855" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		
+		<a href="mailto:liangjiao@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2016 
+		
+		<a href="http://yohy.github.io/about" target="_blank" title="yohy">yohy</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"yohy"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+ </html>
