@@ -35,7 +35,8 @@ U盘中了快捷方式的病毒，打开U盘发现文件夹很多都变成了快
 发现打印机共享不能使用，我可以ping通别人的电脑，别人不可以ping我的。应该是windows防火墙有问题.
 想要写github博文的时候，发现hexo g不能使用，npm和h">
 <meta property="og:image" content="https://gss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/e61190ef76c6a7ef1d2a2a79fffaaf51f3de6665.jpg">
-<meta property="og:updated_time" content="2016-12-23T12:05:02.428Z">
+<meta property="og:image" content="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/e824b899a9014c08d6e67d400c7b02087af4f472.jpg">
+<meta property="og:updated_time" content="2016-12-30T05:09:21.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="windows防火墙设置">
 <meta name="twitter:description" content="最近几天电脑好像中了病毒，然后今天偶然发现windows防火墙搞得乱七八糟，已经不能开启服务了，然后花了两个小时时间开始各种找问题和解决。
@@ -141,6 +142,14 @@ The service should now start.</code></p>
 <p>解决方法参考了：<a href="http://ccc013.github.io/2016/01/20/hexo+github%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93/" title="hexo使用问题总结" target="_blank" rel="external">hexo使用问题总结</a></p>
 <h2 id="u95EE_u9898_u56DB_u7684_u89E3_u51B3"><a href="#u95EE_u9898_u56DB_u7684_u89E3_u51B3" class="headerlink" title="问题四的解决"></a>问题四的解决</h2><p>电脑插入U盘以后发现文件夹都变成了快捷方式。参考了网上的解决方法</p>
 <p><a href="http://www.3lian.com/edu/2015/09-01/242988.html" title="电脑插入U盘后里面的文件变成快捷方式" target="_blank" rel="external">电脑插入U盘后里面的文件变成快捷方式</a></p>
+<p>然而今天打开移动硬盘发现移动硬盘也中枪了，我心塞的心情无以复加啊，后来发现其实解决很简单，只需要把隐藏的文件显示出来<br><img src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/e824b899a9014c08d6e67d400c7b02087af4f472.jpg" alt=""><br>把快捷方式和vbs以及autorun.inf文件删掉，就可以了。</p>
+<p>之后会发现很多正常文件夹也变成了受保护的操作系统文件，解决的方法是：</p>
+<ol>
+<li>开始-&gt;运行-&gt;cmd，打开了命令提示符窗口，</li>
+<li>然后输入：<code>attrib -a -h -s -r 文件名</code>，这个命令的意思就是说把在D盘下的123.txt这个文件的属性去掉存档、隐藏、系统、只读，其中a是指存档属性，h是指隐藏属性，s指系统属性，r指只读属性，+号指添加某一个属性，-号指去掉某个属性。</li>
+<li>如果是系统文件变成了正常文件，则可以使用<code>attrib -a -h -s -r 文件名</code>。</li>
+</ol>
+<p>噗，实验室是搞安全的，结果全实验室的人电脑都是裸奔哈哈哈，某天学妹插上她的U盘处理文件，结果把我的所有U盘移动硬盘全搞中枪了哈哈哈，终于get一项技能啊！本来还可以要格式化的，后来发现移动硬盘那么多剧不舍得删啊！</p>
 <p><strong>ps:</strong> </p>
 <p>记录一下今天这么多的小问题的解决，哈哈~</p>
   
