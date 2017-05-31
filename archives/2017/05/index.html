@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="网络," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,16 +90,15 @@
 
 
 
-<meta name="description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="如何搭建socket并开启守护进程">
-<meta property="og:url" content="http://yohy.github.io/2015/03/06/socket-daemon/index.html">
+<meta name="description" content="想做小文艺的程序员小硕一枚，想找到自己生存的意义和价值。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Joyce's blog">
+<meta property="og:url" content="http://yohy.github.io/archives/2017/05/index.html">
 <meta property="og:site_name" content="Joyce's blog">
-<meta property="og:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
-<meta property="og:updated_time" content="2017-05-29T03:29:53.001Z">
+<meta property="og:description" content="想做小文艺的程序员小硕一枚，想找到自己生存的意义和价值。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何搭建socket并开启守护进程">
-<meta name="twitter:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta name="twitter:title" content="Joyce's blog">
+<meta name="twitter:description" content="想做小文艺的程序员小硕一枚，想找到自己生存的意义和价值。">
 
 
 
@@ -127,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yohy.github.io/2015/03/06/socket-daemon/"/>
+  <link rel="canonical" href="http://yohy.github.io/archives/2017/05/"/>
 
 
 
 
 
-  <title>如何搭建socket并开启守护进程 | Joyce's blog</title>
+  <title>归档 | Joyce's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -277,230 +276,140 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yohy.github.io/2015/03/06/socket-daemon/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce's blog">
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 16 篇日志。 继续努力。
     </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">如何搭建socket并开启守护进程</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-06T13:00:39+08:00">
-                Mar 6 2015
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络编程/" itemprop="url" rel="index">
-                    <span itemprop="name">网络编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/03/06/socket-daemon/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/03/06/socket-daemon/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
       
-        <p>最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。<br><a id="more"></a></p>
-<h3 id="u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="一. socket是什么？"></a>一. socket是什么？</h3><hr>
-<p>在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP/IP协议族已经帮我们解决了这个问题，网络层的“ip地址”可以唯一标识网络中的主机，而传输层的“协议+端口”可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</p>
-<p>网络中的进程是通过socket来通信的。</p>
-<h3 id="u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><a href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F" class="headerlink" title="二. socket基本操作？"></a>二. socket基本操作？</h3><hr>
-<pre><code>1. socket()
-2. bind()
-3. listen()
-4. connect()
-5. accept()
-6. read()
-7. write()
-8. close()
-</code></pre><h3 id="u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="三. 守护进程是什么？"></a>三. 守护进程是什么？</h3><hr>
-<ol>
-<li><p>守护进程：生存期长，在系统引导装入时启动，在系统关闭时终止，没有控制终端，只在后台运行。所有守护进程的父进程都是init进程</p>
-</li>
-<li><p>一个或多个进程构成进程组，一个或多个进程组构成会话组</p>
-</li>
-<li><p>守护进程编程规则：</p>
-<ol>
-<li>创建子进程，父进程退出(使得子进程成为孤儿进程，孤儿进程运行一段时间后，由init进程统一接管)</li>
-<li><p>调用setsid创建一个新的会话，并担任该会话组的组长.setsid的作用如下：</p>
-<ul>
-<li><p>成为新会话组的首进程 </p>
-</li>
-<li><p>成为一个新进程组的首进程</p>
-</li>
-<li><p>脱离控制终端</p>
-</li>
-</ul>
-</li>
-<li><p>改变当前目录为根目录—chdir(“/“);</p>
-</li>
-<li>重设文件权限掩码—umask(0);—-对所有权限都开放</li>
-<li><p>关闭不再需要的文件描述符—–</p>
-<blockquote>
-</blockquote>
-<p>for(i=0;i&lt;MAXFILE;i++)<br>{<br>  close(i);<br>}</p>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><a href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F" class="headerlink" title="四. linux下如何将socket和守护进程应用起来？"></a>四. linux下如何将socket和守护进程应用起来？</h3><hr>
-<p>由于项目保密性需要，这个可以参考一个网址<a href="http://blog.chinaunix.net/uid-20372841-id-1695254.html" title="linux下守护进程和socket应用的例子" target="_blank" rel="external">linux下守护进程和socket应用的例子</a>，我对代码进行了修改，如将read()、write()函数替换成了send()、recv()函数，实现了服务器有守护进程跑着，客户端可随时对服务器发送request，服务器解析之后返回response。</p>
-<p>相关代码还是等毕设之后吧~</p>
 
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/网络/" rel="tag"># 网络</a>
-          
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
         </div>
       
+      
 
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
-      
+            <a class="post-title-link" href="/2017/05/31/istanbul/" itemprop="url">
+              
+                <span itemprop="name">伊斯坦布尔假期</span>
+              
+            </a>
+        
+      </h2>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/02/04/shawshank/" rel="next" title="肖申克的救赎">
-                <i class="fa fa-chevron-left"></i> 肖申克的救赎
-              </a>
-            
-          </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-05-31T11:07:46+08:00"
+              content="May 31 2017" >
+          05-31
+        </time>
+      </div>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/09/14/current/" rel="prev" title="写在最迷茫的15年9月">
-                写在最迷茫的15年9月 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
+    
+
       
-    </div>
-  </div>
+      
+      
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2017/05/31/pirates/" itemprop="url">
+              
+                <span itemprop="name">加勒比海盗</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-05-31T11:05:57+08:00"
+              content="May 31 2017" >
+          05-31
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+      
+      
+      
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2017/05/31/welfare/" itemprop="url">
+              
+                <span itemprop="name">关于支教和公益</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-05-31T10:59:42+08:00"
+              content="May 31 2017" >
+          05-31
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+  </section>
+
+  
+
 
 
           </div>
@@ -508,17 +417,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -538,17 +436,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -630,22 +519,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><span class="nav-number">1.</span> <span class="nav-text">一. socket是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><span class="nav-number">2.</span> <span class="nav-text">二. socket基本操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><span class="nav-number">3.</span> <span class="nav-text">三. 守护进程是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><span class="nav-number">4.</span> <span class="nav-text">四. linux下如何将socket和守护进程应用起来？</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -766,9 +639,11 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
@@ -787,18 +662,6 @@
       <script id="dsq-count-scr" src="https://yohy.disqus.com.disqus.com/count.js" async></script>
     
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yohy.github.io/2015/03/06/socket-daemon/';
-          this.page.identifier = '2015/03/06/socket-daemon/';
-          this.page.title = '如何搭建socket并开启守护进程';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://yohy.disqus.com.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
     
 
   

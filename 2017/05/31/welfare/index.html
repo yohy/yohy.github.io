@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="网络," />
+  <meta name="keywords" content="随想," />
 
 
 
@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta name="description" content="昨天端午节，没有出去玩，留在上海。在豆瓣同城上看到了一个活动，题目是 “支教、公益、非营利组织，你想听到的故事”。正好最近一直在想人活着的意义，估计又是因为闲下来的原因，开始思考很多。我想，人来到这个世界，不是为了随波逐流走一遭，可能还有很多意义吧，或许是自我价值的实现，为这个世界留下一些什么。而不仅仅是赚着年薪20w的工资，结婚生子，操持家庭，或者是游戏人生。可能每个人的三观不同，但是自我价值的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何搭建socket并开启守护进程">
-<meta property="og:url" content="http://yohy.github.io/2015/03/06/socket-daemon/index.html">
+<meta property="og:title" content="关于支教和公益">
+<meta property="og:url" content="http://yohy.github.io/2017/05/31/welfare/index.html">
 <meta property="og:site_name" content="Joyce's blog">
-<meta property="og:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
-<meta property="og:updated_time" content="2017-05-29T03:29:53.001Z">
+<meta property="og:description" content="昨天端午节，没有出去玩，留在上海。在豆瓣同城上看到了一个活动，题目是 “支教、公益、非营利组织，你想听到的故事”。正好最近一直在想人活着的意义，估计又是因为闲下来的原因，开始思考很多。我想，人来到这个世界，不是为了随波逐流走一遭，可能还有很多意义吧，或许是自我价值的实现，为这个世界留下一些什么。而不仅仅是赚着年薪20w的工资，结婚生子，操持家庭，或者是游戏人生。可能每个人的三观不同，但是自我价值的">
+<meta property="og:updated_time" content="2017-05-31T03:07:16.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何搭建socket并开启守护进程">
-<meta name="twitter:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta name="twitter:title" content="关于支教和公益">
+<meta name="twitter:description" content="昨天端午节，没有出去玩，留在上海。在豆瓣同城上看到了一个活动，题目是 “支教、公益、非营利组织，你想听到的故事”。正好最近一直在想人活着的意义，估计又是因为闲下来的原因，开始思考很多。我想，人来到这个世界，不是为了随波逐流走一遭，可能还有很多意义吧，或许是自我价值的实现，为这个世界留下一些什么。而不仅仅是赚着年薪20w的工资，结婚生子，操持家庭，或者是游戏人生。可能每个人的三观不同，但是自我价值的">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yohy.github.io/2015/03/06/socket-daemon/"/>
+  <link rel="canonical" href="http://yohy.github.io/2017/05/31/welfare/"/>
 
 
 
 
 
-  <title>如何搭建socket并开启守护进程 | Joyce's blog</title>
+  <title>关于支教和公益 | Joyce's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -287,7 +287,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yohy.github.io/2015/03/06/socket-daemon/">
+    <link itemprop="mainEntityOfPage" href="http://yohy.github.io/2017/05/31/welfare/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Joyce">
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何搭建socket并开启守护进程</h1>
+          <h1 class="post-title" itemprop="name headline">关于支教和公益</h1>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-06T13:00:39+08:00">
-                Mar 6 2015
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T10:59:42+08:00">
+                May 31 2017
               </time>
             
 
@@ -339,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络编程/" itemprop="url" rel="index">
-                    <span itemprop="name">网络编程</span>
+                  <a href="/categories/胡思乱想/" itemprop="url" rel="index">
+                    <span itemprop="name">胡思乱想</span>
                   </a>
                 </span>
 
@@ -357,9 +357,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/03/06/socket-daemon/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/31/welfare/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/03/06/socket-daemon/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/31/welfare/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -384,52 +384,15 @@
       
 
       
-        <p>最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。<br><a id="more"></a></p>
-<h3 id="u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="一. socket是什么？"></a>一. socket是什么？</h3><hr>
-<p>在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP/IP协议族已经帮我们解决了这个问题，网络层的“ip地址”可以唯一标识网络中的主机，而传输层的“协议+端口”可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</p>
-<p>网络中的进程是通过socket来通信的。</p>
-<h3 id="u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><a href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F" class="headerlink" title="二. socket基本操作？"></a>二. socket基本操作？</h3><hr>
-<pre><code>1. socket()
-2. bind()
-3. listen()
-4. connect()
-5. accept()
-6. read()
-7. write()
-8. close()
-</code></pre><h3 id="u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="三. 守护进程是什么？"></a>三. 守护进程是什么？</h3><hr>
-<ol>
-<li><p>守护进程：生存期长，在系统引导装入时启动，在系统关闭时终止，没有控制终端，只在后台运行。所有守护进程的父进程都是init进程</p>
-</li>
-<li><p>一个或多个进程构成进程组，一个或多个进程组构成会话组</p>
-</li>
-<li><p>守护进程编程规则：</p>
-<ol>
-<li>创建子进程，父进程退出(使得子进程成为孤儿进程，孤儿进程运行一段时间后，由init进程统一接管)</li>
-<li><p>调用setsid创建一个新的会话，并担任该会话组的组长.setsid的作用如下：</p>
-<ul>
-<li><p>成为新会话组的首进程 </p>
-</li>
-<li><p>成为一个新进程组的首进程</p>
-</li>
-<li><p>脱离控制终端</p>
-</li>
-</ul>
-</li>
-<li><p>改变当前目录为根目录—chdir(“/“);</p>
-</li>
-<li>重设文件权限掩码—umask(0);—-对所有权限都开放</li>
-<li><p>关闭不再需要的文件描述符—–</p>
-<blockquote>
-</blockquote>
-<p>for(i=0;i&lt;MAXFILE;i++)<br>{<br>  close(i);<br>}</p>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><a href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F" class="headerlink" title="四. linux下如何将socket和守护进程应用起来？"></a>四. linux下如何将socket和守护进程应用起来？</h3><hr>
-<p>由于项目保密性需要，这个可以参考一个网址<a href="http://blog.chinaunix.net/uid-20372841-id-1695254.html" title="linux下守护进程和socket应用的例子" target="_blank" rel="external">linux下守护进程和socket应用的例子</a>，我对代码进行了修改，如将read()、write()函数替换成了send()、recv()函数，实现了服务器有守护进程跑着，客户端可随时对服务器发送request，服务器解析之后返回response。</p>
-<p>相关代码还是等毕设之后吧~</p>
+        <p>昨天端午节，没有出去玩，留在上海。在豆瓣同城上看到了一个活动，题目是 “支教、公益、非营利组织，你想听到的故事”。正好最近一直在想人活着的意义，估计又是因为闲下来的原因，开始思考很多。我想，人来到这个世界，不是为了随波逐流走一遭，可能还有很多意义吧，或许是自我价值的实现，为这个世界留下一些什么。而不仅仅是赚着年薪20w的工资，结婚生子，操持家庭，或者是游戏人生。可能每个人的三观不同，但是自我价值的实现应该是大部分人追求的人生真谛吧。</p>
+<p>我想去看看那些跟我不一样经历的人，他们的人生，他们的自我价值怎么实现的。昨天去参加这个活动，主讲者是一个女孩子，留着波波头，看起来很年轻俏皮，但其实她已经去美国留学四年，在云南支教两年，去过非洲当国际志愿者了。她讲了很多经历，讲到每一段经历的好与坏。</p>
+<p>支教这一项，讲到教育的重要性，对当地现代化的一些改变，对教育体制的思考，但她也说到，她们的力量微乎其微，两年的时间，她们只能触及到一小部分人，而教育需要长年累月的影响。那么意义在哪里呢？主持人是一个非常睿智的人，他提了一个问题说的很好，这些活动到底的改变了自己还是改变了别人，别人是否需要这样的改变呢？这个真的值得深思。</p>
+<p>非洲国际志愿者这一项，我才知道里面的参与者很多都是欧洲的家庭给自己小孩的成年礼，就是去非洲体验生活，其实并不能算志愿者。但是感触也有很多，比如听她讲到，大家去到穆斯林地区，虽然很热但领队要求大家把自己包裹一下，有小孩不能理解为什么要去适应他们，而不是改变他们。我想这或许就是 入乡随俗吧。</p>
+<p>所以支教和非洲活动，为什么一个需要致力于改变，一个需要致力于融入呢？而这些选择到底是什么来决定的，标准是怎么来的呢？好坏呢？这会不会是另一种形式的“文化植入”呢？<br>另一个重要的话题，是目前很火的公益性组织，在场也有在公益组织工作的人，提供了很多信息和思路。说到“公益盈利不丢人”，我觉得很对，目前国内对公益组织太苛刻了，而一个组织要维持运作是需要很多投入的，一个组织要继续完善和进步也是需要很多投入去尝试的。我们应该对这些组织有一些包容的态度，可以把眼光放在他们在做的项目和对社会的帮助和改变上来，而不是一味的去拿钱说事。</p>
+<p>最后提到了收获，做支教，做公益最后的收获呢？其实很多时候，当你真正融入一项活动的时候，往往现实情况会远低于自己的预期，我完全认同，就像我去bit觉得很多地方需要完善，在校期间自己种种吐槽，如今来了fd，吐槽仍旧不断。在这些活动中，主讲人说到自己其实收获的远不如自己想象的多，原以为自己的非洲志愿者有多么伟大，但最后做的却只是一个当地人都用不到的一个菜园子，他们还没走就马上拆掉，这非洲之旅变成了有钱人家小孩的summer camp。但即便是这样，我们仍然应该以一种open mind的心态的去看待收获，后面大家提到收获其实是 自我主动的。我觉得这个真的是本场的升华吧，即使是再好的活动，如果没有自我驱动自我认同，那么依然爱没有收获。我想这也对我启发很大，在吐槽前，或许可以再多加一些思考吧。</p>
+<p>昨天参加这次活动，看到了另一类人的人生，她们比我潇洒，比我勇敢，爱哭爱笑真性情，这是我羡慕的人生。人真的是越长大越胆小。每个人的性格和三观其实都是家庭的影响，这些人大部分都是来自于上海北京，家里条件很优越，父母从小放养孩子，尊重孩子的意愿。教育是一门学问，影响深远啊，我的父母影响我，也间接影响到了他们的子子孙孙。</p>
+<p>我觉得我这段时间迷茫似乎找到了一些切入点，迷茫的原因其实来自于“自我认同感”的缺失，而如何重新找回这种自我认同感呢？其实我上面也提到了，需要“自我主动”。</p>
+<p>后记<br>我会持续关注一些公益活动，自己亲身去体验一些，生活应该有很多不一样的色彩，从对社会的帮助中获得更多的价值实现。欢迎大家讨论和分享自己的看法。</p>
 
       
     </div>
@@ -459,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/网络/" rel="tag"># 网络</a>
+            <a href="/tags/随想/" rel="tag"># 随想</a>
           
         </div>
       
@@ -472,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/02/04/shawshank/" rel="next" title="肖申克的救赎">
-                <i class="fa fa-chevron-left"></i> 肖申克的救赎
+              <a href="/2016/12/23/windows-firewall/" rel="next" title="windows防火墙设置">
+                <i class="fa fa-chevron-left"></i> windows防火墙设置
               </a>
             
           </div>
@@ -482,8 +445,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/14/current/" rel="prev" title="写在最迷茫的15年9月">
-                写在最迷茫的15年9月 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/31/pirates/" rel="prev" title="加勒比海盗">
+                加勒比海盗 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -538,17 +501,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -630,22 +584,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><span class="nav-number">1.</span> <span class="nav-text">一. socket是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><span class="nav-number">2.</span> <span class="nav-text">二. socket基本操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><span class="nav-number">3.</span> <span class="nav-text">三. 守护进程是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><span class="nav-number">4.</span> <span class="nav-text">四. linux下如何将socket和守护进程应用起来？</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -790,9 +728,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yohy.github.io/2015/03/06/socket-daemon/';
-          this.page.identifier = '2015/03/06/socket-daemon/';
-          this.page.title = '如何搭建socket并开启守护进程';
+          this.page.url = 'http://yohy.github.io/2017/05/31/welfare/';
+          this.page.identifier = '2017/05/31/welfare/';
+          this.page.title = '关于支教和公益';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yohy.disqus.com.disqus.com/embed.js';

@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="网络," />
+  <meta name="keywords" content="电影," />
 
 
 
@@ -90,16 +90,22 @@
 
 
 
-<meta name="description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta name="description" content="以前自己是一个害怕表达自己想法的人，担心在别人看来这些想法和评价牛头不对马嘴。后来愈发明白，评价和想法本来就有很强的主观性，一个事物触动每个人的点本来就不同，所以评价就更加会多元了。
+上周和川哥去看了《加勒比海盗5：死无对证》，其实我没有看过之前的系列，剧情可能也没有看很懂，这篇不能算是影评或者剧情分析吧，只能算是我的一些感悟。
+我印象很深的是，在杰克船长即将上断头台的时候，遇到了他的老爸，他们还">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何搭建socket并开启守护进程">
-<meta property="og:url" content="http://yohy.github.io/2015/03/06/socket-daemon/index.html">
+<meta property="og:title" content="加勒比海盗">
+<meta property="og:url" content="http://yohy.github.io/2017/05/31/pirates/index.html">
 <meta property="og:site_name" content="Joyce's blog">
-<meta property="og:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
-<meta property="og:updated_time" content="2017-05-29T03:29:53.001Z">
+<meta property="og:description" content="以前自己是一个害怕表达自己想法的人，担心在别人看来这些想法和评价牛头不对马嘴。后来愈发明白，评价和想法本来就有很强的主观性，一个事物触动每个人的点本来就不同，所以评价就更加会多元了。
+上周和川哥去看了《加勒比海盗5：死无对证》，其实我没有看过之前的系列，剧情可能也没有看很懂，这篇不能算是影评或者剧情分析吧，只能算是我的一些感悟。
+我印象很深的是，在杰克船长即将上断头台的时候，遇到了他的老爸，他们还">
+<meta property="og:updated_time" content="2017-05-31T03:09:13.425Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何搭建socket并开启守护进程">
-<meta name="twitter:description" content="最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。">
+<meta name="twitter:title" content="加勒比海盗">
+<meta name="twitter:description" content="以前自己是一个害怕表达自己想法的人，担心在别人看来这些想法和评价牛头不对马嘴。后来愈发明白，评价和想法本来就有很强的主观性，一个事物触动每个人的点本来就不同，所以评价就更加会多元了。
+上周和川哥去看了《加勒比海盗5：死无对证》，其实我没有看过之前的系列，剧情可能也没有看很懂，这篇不能算是影评或者剧情分析吧，只能算是我的一些感悟。
+我印象很深的是，在杰克船长即将上断头台的时候，遇到了他的老爸，他们还">
 
 
 
@@ -127,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yohy.github.io/2015/03/06/socket-daemon/"/>
+  <link rel="canonical" href="http://yohy.github.io/2017/05/31/pirates/"/>
 
 
 
 
 
-  <title>如何搭建socket并开启守护进程 | Joyce's blog</title>
+  <title>加勒比海盗 | Joyce's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -287,7 +293,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yohy.github.io/2015/03/06/socket-daemon/">
+    <link itemprop="mainEntityOfPage" href="http://yohy.github.io/2017/05/31/pirates/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Joyce">
@@ -304,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何搭建socket并开启守护进程</h1>
+          <h1 class="post-title" itemprop="name headline">加勒比海盗</h1>
         
 
         <div class="post-meta">
@@ -316,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-06T13:00:39+08:00">
-                Mar 6 2015
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T11:05:57+08:00">
+                May 31 2017
               </time>
             
 
@@ -339,8 +345,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络编程/" itemprop="url" rel="index">
-                    <span itemprop="name">网络编程</span>
+                  <a href="/categories/电影推荐/" itemprop="url" rel="index">
+                    <span itemprop="name">电影推荐</span>
                   </a>
                 </span>
 
@@ -357,9 +363,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/03/06/socket-daemon/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/31/pirates/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/03/06/socket-daemon/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/31/pirates/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -384,52 +390,9 @@
       
 
       
-        <p>最近由于项目需要，要学习网络编程有关的知识，socket以前在学网络的时候搭建过，不过这次要将服务器用守护进程跑起来，经过查找资料终于有点一知半解，并且实现了守护进程和socket的结合，赶紧记录下来。<br><a id="more"></a></p>
-<h3 id="u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="一. socket是什么？"></a>一. socket是什么？</h3><hr>
-<p>在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP/IP协议族已经帮我们解决了这个问题，网络层的“ip地址”可以唯一标识网络中的主机，而传输层的“协议+端口”可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</p>
-<p>网络中的进程是通过socket来通信的。</p>
-<h3 id="u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><a href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F" class="headerlink" title="二. socket基本操作？"></a>二. socket基本操作？</h3><hr>
-<pre><code>1. socket()
-2. bind()
-3. listen()
-4. connect()
-5. accept()
-6. read()
-7. write()
-8. close()
-</code></pre><h3 id="u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><a href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="三. 守护进程是什么？"></a>三. 守护进程是什么？</h3><hr>
-<ol>
-<li><p>守护进程：生存期长，在系统引导装入时启动，在系统关闭时终止，没有控制终端，只在后台运行。所有守护进程的父进程都是init进程</p>
-</li>
-<li><p>一个或多个进程构成进程组，一个或多个进程组构成会话组</p>
-</li>
-<li><p>守护进程编程规则：</p>
-<ol>
-<li>创建子进程，父进程退出(使得子进程成为孤儿进程，孤儿进程运行一段时间后，由init进程统一接管)</li>
-<li><p>调用setsid创建一个新的会话，并担任该会话组的组长.setsid的作用如下：</p>
-<ul>
-<li><p>成为新会话组的首进程 </p>
-</li>
-<li><p>成为一个新进程组的首进程</p>
-</li>
-<li><p>脱离控制终端</p>
-</li>
-</ul>
-</li>
-<li><p>改变当前目录为根目录—chdir(“/“);</p>
-</li>
-<li>重设文件权限掩码—umask(0);—-对所有权限都开放</li>
-<li><p>关闭不再需要的文件描述符—–</p>
-<blockquote>
-</blockquote>
-<p>for(i=0;i&lt;MAXFILE;i++)<br>{<br>  close(i);<br>}</p>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><a href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F" class="headerlink" title="四. linux下如何将socket和守护进程应用起来？"></a>四. linux下如何将socket和守护进程应用起来？</h3><hr>
-<p>由于项目保密性需要，这个可以参考一个网址<a href="http://blog.chinaunix.net/uid-20372841-id-1695254.html" title="linux下守护进程和socket应用的例子" target="_blank" rel="external">linux下守护进程和socket应用的例子</a>，我对代码进行了修改，如将read()、write()函数替换成了send()、recv()函数，实现了服务器有守护进程跑着，客户端可随时对服务器发送request，服务器解析之后返回response。</p>
-<p>相关代码还是等毕设之后吧~</p>
+        <p>以前自己是一个害怕表达自己想法的人，担心在别人看来这些想法和评价牛头不对马嘴。后来愈发明白，评价和想法本来就有很强的主观性，一个事物触动每个人的点本来就不同，所以评价就更加会多元了。</p>
+<p>上周和川哥去看了《加勒比海盗5：死无对证》，其实我没有看过之前的系列，剧情可能也没有看很懂，这篇不能算是影评或者剧情分析吧，只能算是我的一些感悟。</p>
+<p>我印象很深的是，在杰克船长即将上断头台的时候，遇到了他的老爸，他们还能继续谈笑，刀子已经悬在脖子上的时候还能继续不正经。排除主角光环和剧情需要的部分，我在想，很多时候不到最后并不知道结局，面对一些突如其来的变故，真的没有必要把他想成灾难，因祸得福的事情谁都谁不准，而每个人都是自己电影中的主角呀，我们的主角光环其实就是在有生之年，不管怎么样，我们都会战胜邪恶，我们都会得到救赎。我们的剧情需要就是总会有一些拦路虎一些恶势力。但是我们需要从容以对，我们需要以一种乐观淡定，真诚从容的心态对面对，去体会，这样最终才会成就一部精彩的人生电影吧。</p>
 
       
     </div>
@@ -459,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/网络/" rel="tag"># 网络</a>
+            <a href="/tags/电影/" rel="tag"># 电影</a>
           
         </div>
       
@@ -472,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/02/04/shawshank/" rel="next" title="肖申克的救赎">
-                <i class="fa fa-chevron-left"></i> 肖申克的救赎
+              <a href="/2017/05/31/welfare/" rel="next" title="关于支教和公益">
+                <i class="fa fa-chevron-left"></i> 关于支教和公益
               </a>
             
           </div>
@@ -482,8 +445,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/14/current/" rel="prev" title="写在最迷茫的15年9月">
-                写在最迷茫的15年9月 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/31/istanbul/" rel="prev" title="伊斯坦布尔假期">
+                伊斯坦布尔假期 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -538,17 +501,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -630,22 +584,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E00-_socket_u662F_u4EC0_u4E48_uFF1F"><span class="nav-number">1.</span> <span class="nav-text">一. socket是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E8C-_socket_u57FA_u672C_u64CD_u4F5C_uFF1F"><span class="nav-number">2.</span> <span class="nav-text">二. socket基本操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E09-__u5B88_u62A4_u8FDB_u7A0B_u662F_u4EC0_u4E48_uFF1F"><span class="nav-number">3.</span> <span class="nav-text">三. 守护进程是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u56DB-_linux_u4E0B_u5982_u4F55_u5C06socket_u548C_u5B88_u62A4_u8FDB_u7A0B_u5E94_u7528_u8D77_u6765_uFF1F"><span class="nav-number">4.</span> <span class="nav-text">四. linux下如何将socket和守护进程应用起来？</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -790,9 +728,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yohy.github.io/2015/03/06/socket-daemon/';
-          this.page.identifier = '2015/03/06/socket-daemon/';
-          this.page.title = '如何搭建socket并开启守护进程';
+          this.page.url = 'http://yohy.github.io/2017/05/31/pirates/';
+          this.page.identifier = '2017/05/31/pirates/';
+          this.page.title = '加勒比海盗';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yohy.disqus.com.disqus.com/embed.js';
